@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useGetReferralsStatQuery } from "@/redux/features/referralsApi";
-import { Check, Copy } from "lucide-react";
+import { Check } from "lucide-react";
 
 interface CardProps {
   name: string;
