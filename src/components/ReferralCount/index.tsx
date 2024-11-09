@@ -46,7 +46,11 @@ const ReferalCard = ({ name, noOfReferrals, link }: CardProps) => {
 };
 
 export default function ReferralCount() {
-  const { data } = useGetReferralsStatQuery();
+  const { data, isLoading, error } = useGetReferralsStatQuery();
+
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>Error: Unable to fetch referral stats.</p>;
+  console.log("By source", data);
 
   return (
     <div className="mt-16">
