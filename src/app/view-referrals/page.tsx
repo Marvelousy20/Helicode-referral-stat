@@ -1,9 +1,17 @@
 "use client";
 import { useGetReferralStatBySourceQuery } from "@/redux/features/referralsApi";
-
+import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 
-export default function ViewReferrals() {
+export default function Page() {
+  return (
+    <Suspense fallback={<p>Loading...</p>}>
+      <ViewReferrals />
+    </Suspense>
+  );
+}
+
+function ViewReferrals() {
   const searchParams = useSearchParams();
   const source = searchParams.get("source");
 
