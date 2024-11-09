@@ -4,7 +4,8 @@ export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_SERVER_URL,
-    prepareHeaders: (headers, {}: {}) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    prepareHeaders: (headers, _: unknown) => {
       headers.set("Accept", "application/json");
     },
   }),
