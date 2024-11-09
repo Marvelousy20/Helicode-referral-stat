@@ -4,11 +4,11 @@ export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_SERVER_URL,
-    prepareHeaders: (headers, {}: any) => {
+    prepareHeaders: (headers, _: unknown) => {
       headers.set("Accept", "application/json");
     },
   }),
-  endpoints: (_builder) => ({}),
+  endpoints: () => ({}),
 });
 
 export const {} = apiSlice;
