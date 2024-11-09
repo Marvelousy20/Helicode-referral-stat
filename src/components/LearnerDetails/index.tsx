@@ -12,7 +12,7 @@ export default function LearnerDetails() {
       <div className="flex justify-between text-[#101828] text-lg font-medium">
         <h4>Learner details</h4>
 
-        <button className="underline">Download CSV</button>
+        <button className="underline">Download CSV </button>
       </div>
 
       <div>
