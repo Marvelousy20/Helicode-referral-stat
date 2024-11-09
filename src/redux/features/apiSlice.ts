@@ -4,7 +4,7 @@ export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_SERVER_URL,
-    prepareHeaders: (headers, _: unknown) => {
+    prepareHeaders: (headers, {}: {}) => {
       headers.set("Accept", "application/json");
     },
   }),
