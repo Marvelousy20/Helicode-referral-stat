@@ -60,7 +60,7 @@ export default function ReferralCount() {
             key={i}
             name={referral.source}
             noOfReferrals={referral.referrals}
-            link={`http://localhost:3000/view-referrals?source=${referral.source}`}
+            link={`https://stats.helicode.xyz/view-referrals?source=${referral.source}`}
           />
         ))}
       </div>
