@@ -9,6 +9,12 @@ interface DataProps {
   course: string;
   referralSource: string;
   phoneNumber: string;
+  email: string;
+  discordUserName: string;
+  paymentStatus: string;
+  paymentType: string;
+  paymentMethod: string;
+  paidOn: string;
 }
 
 interface ApiResponse {
