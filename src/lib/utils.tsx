@@ -1,9 +1,13 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+import countries from "i18n-iso-countries";
+import enLocale from "i18n-iso-countries/langs/en.json";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
+
+countries.registerLocale(enLocale);
 
 export function formatDate(isoString: string): string {
   const date = new Date(isoString);
@@ -20,4 +24,16 @@ export function formatDate(isoString: string): string {
   };
 
   return date.toLocaleDateString("en-US", options);
+}
+
+export function getCountryName(code: string) {
+  if (!code) return "";
+
+  try {
+    const countryName = countries.getName(code.toUpperCase(), "en");
+    return countryName || "Unknown Country";
+  } catch (error: unknown) {
+    console.error(error);
+    return "Unknown Country";
+  }
 }

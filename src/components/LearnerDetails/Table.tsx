@@ -1,5 +1,5 @@
 import React from "react";
-import { formatDate } from "@/lib/utils";
+import { formatDate, getCountryName } from "@/lib/utils";
 
 interface TableData {
   firstName: string;
@@ -70,7 +70,9 @@ const Table: React.FC<TableProps> = ({ data }) => {
               <td className="px-4 py-6 text-left border-b">{row.email}</td>
 
               <td className="px-4 py-6 text-left border-b">{row.ageRange}</td>
-              <td className="px-4 py-6 text-left border-b">{row.country}</td>
+              <td className="px-4 py-6 text-left border-b">
+                {getCountryName(row.country)}
+              </td>
               <td className="px-4 py-6 text-left border-b">{row.course}</td>
               <td className="px-4 py-6 text-left border-b">
                 {row.referralSource}
