@@ -19,14 +19,19 @@ interface TableData {
 
 interface TableProps {
   data: TableData[] | undefined;
+  currentPage: number;
+  itemsPerPage: number;
 }
 
-const Table: React.FC<TableProps> = ({ data }) => {
+const Table: React.FC<TableProps> = ({ data, currentPage, itemsPerPage }) => {
+  const startIndex = (currentPage - 1) * itemsPerPage;
+
   return (
     <div className="overflow-x-auto">
       <table className="table-auto min-w-full border-collapse mt-5 border">
         <thead>
           <tr className="text-[#565D62] font-normal text-sm bg-[#F9FAFB]">
+            <th className="px-4 py-6 text-left whitespace-nowrap">#</th>
             <th className="px-4 py-6 text-left whitespace-nowrap">
               First Name
             </th>
@@ -65,6 +70,9 @@ const Table: React.FC<TableProps> = ({ data }) => {
               // className={`text-sm ${index % 2 === 0 ? "bg-gray-100" : ""}`}
               className="text-sm"
             >
+              <td className="px-4 py-6 text-left border-b">
+                {startIndex + index + 1}
+              </td>
               <td className="px-4 py-6 text-left border-b">{row.firstName}</td>
               <td className="px-4 py-6 text-left border-b">{row.lastName}</td>
               <td className="px-4 py-6 text-left border-b">{row.email}</td>
