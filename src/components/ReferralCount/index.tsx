@@ -50,7 +50,6 @@ export default function ReferralCount() {
 
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error: Unable to fetch referral stats.</p>;
-  console.log("By source", data);
 
   return (
     <div className="mt-16">

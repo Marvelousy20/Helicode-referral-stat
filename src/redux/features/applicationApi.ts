@@ -2,6 +2,7 @@ import { endpoints } from "../endpoints";
 import { apiSlice } from "./apiSlice";
 
 interface DataProps {
+  id?: string;
   firstName: string;
   lastName: string;
   ageRange: string;
@@ -32,10 +33,6 @@ interface PaginationParams {
   limit?: number;
 }
 
-// interface ApiResponse {
-//   data: DataProps[];
-// }
-
 export const ApplicationApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getApplications: builder.query<PaginatedApiResponse, PaginationParams>({
@@ -48,10 +45,21 @@ export const ApplicationApi = apiSlice.injectEndpoints({
         },
         credentials: "include" as const,
       }),
+
+      // transformResponse: (response: ApiResponse) => response.data,
+    }),
+
+    getAllApplications: builder.query<PaginatedApiResponse, void>({
+      query: () => ({
+        url: endpoints.getApplications,
+        method: "GET",
+        credentials: "include" as const,
+      }),
       // transformResponse: (response: ApiResponse) => response.data,
     }),
   }),
   overrideExisting: true,
 });
 
-export const { useGetApplicationsQuery } = ApplicationApi;
+export const { useGetApplicationsQuery, useGetAllApplicationsQuery } =
+  ApplicationApi;

@@ -1,7 +1,10 @@
 "use client";
 import { useState } from "react";
 import Table from "./Table";
-import { useGetApplicationsQuery } from "@/redux/features/applicationApi";
+import {
+  useGetApplicationsQuery,
+  useGetAllApplicationsQuery,
+} from "@/redux/features/applicationApi";
 import Pagination from "../pagination";
 
 export default function LearnerDetails() {
@@ -12,6 +15,8 @@ export default function LearnerDetails() {
     page: currentPage,
     limit: itemsPerPage,
   });
+
+  const { data: allData } = useGetAllApplicationsQuery();
 
   // Handle page change
   const handlePageChange = (newPage: number) => {
@@ -26,6 +31,68 @@ export default function LearnerDetails() {
     setCurrentPage(1); // Reset to first page when changing items per page
   };
 
+  const downloadCSV = () => {
+    // Checks if data exists
+    if (!allData || !allData.data || allData.data.length === 0) {
+      return;
+    }
+
+    const applications = allData.data;
+
+    // Define CSV headers based on your table structure
+    const headers = [
+      "id",
+      "firstName",
+      "lastName",
+      "email",
+      "ageRange",
+      "country",
+      "course",
+      "referralSource",
+      "phoneNumber",
+      "discordUserName",
+      "paymentStatus",
+      "paymentType",
+      "paymentMethod",
+      "paidOn",
+    ] as const;
+
+    let csvContent = headers.join(",") + "\n";
+
+    // Add data rows
+    applications.forEach((application) => {
+      const row = headers.map((header) => {
+        // Get the value and handle potential undefined values
+        const value =
+          application[header] !== undefined ? application[header] : "";
+
+        // Handle values that contain commas by wrapping in quotes
+        const formattedValue =
+          typeof value === "string" && value.includes(",")
+            ? `"${value}"`
+            : value;
+
+        return formattedValue;
+      });
+
+      csvContent += row.join(",") + "\n";
+    });
+
+    // Create a Blob with the CSV content
+    const blob = new Blob([csvContent], { type: "text/csv;cgarset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+
+    // Create download link and trgger click
+    const link = document.createElement("a");
+    link.setAttribute("href", url);
+    link.setAttribute("download", "applications.csv");
+    link.style.display = "hidden";
+
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Error: Unable to fetch referral stats.</p>;
 
@@ -34,7 +101,9 @@ export default function LearnerDetails() {
       <div className="flex justify-between text-[#101828] text-lg font-medium">
         <h4>Learner details</h4>
 
-        <button className="underline">Download CSV</button>
+        <button className="underline" onClick={downloadCSV}>
+          Download CSV
+        </button>
       </div>
 
       <div>
