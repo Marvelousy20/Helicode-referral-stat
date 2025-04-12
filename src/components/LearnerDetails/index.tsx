@@ -18,6 +18,8 @@ export default function LearnerDetails() {
 
   const { data: allData } = useGetAllApplicationsQuery();
 
+  console.log(allData);
+
   // Handle page change
   const handlePageChange = (newPage: number) => {
     setCurrentPage(newPage);
@@ -133,7 +135,7 @@ export default function LearnerDetails() {
         {data && (
           <Pagination
             currentPage={currentPage}
-            totalPages={data?.meta?.totalPages}
+            totalPages={Math.ceil(data?.meta?.totalItems / itemsPerPage)}
             onPageChange={handlePageChange}
           />
         )}
